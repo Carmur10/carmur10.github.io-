@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            /* 10. Background texture (optional) - Add a background image if you provide one */
+            /* background-image: url('[BACKGROUND TEXTURE FILENAME]'); */
+            /* background-repeat: repeat; */ 
+            
+            /* Setting a base font style for the page */
+            font-family: [YOUR FONT STYLE, e.g., Arial, sans-serif]; 
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333; /* Default text color */
+        }
+        
+        .main-content {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .styled-text {
+            /* 4. Use of Font Color / Font Styles - Example of custom color */
+            color: [YOUR FONT COLOR, e.g., blue]; 
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
 <body>
 
-<h1>My Webpage</h1>
+    <div class="main-content">
+        <header style="text-align: center; margin-bottom: 20px;">
+            <img src="[YOUR LOGO FILENAME, e.g., my_logo.jpg]" alt="Company Logo" style="max-width: 150px; height: auto;">
+            <hr>
+        </header>
 
-<p>My first paragraph.</p>
+        <h2>Welcome to my Page!</h2>
+        <p>[YOUR INTRODUCTION TEXT HERE]</p>
+        
+        <p class="styled-text">This sentence uses the custom font color and style you requested!</p>
+
+        <h3>A Little About Me</h3>
+        <p>[YOUR SHORT BIO PARAGRAPH HERE]</p>
+        
+        <h3 style="margin-top: 30px;">Featured Graphic</h3>
+        <div style="text-align: center;">
+            <img src="[YOUR PICTURE FILENAME, e.g., my_photo.png]" alt="A personal picture or graphic" style="max-width: 100%; height: auto; border: 1px solid #ccc; padding: 5px;">
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>Connect with me:</p>
+        <a href="https://labgolf.com/products/link-1-custom">Link 1 Text</a> | 
+        <a href="https://www.insta360.com/product/insta360-link2">Link 2 Text</a>
+        
+        <hr>
+        
+        <p>&copy; All Rights Reserved 2012</p>
+    </div>
 
 </body>
 </html>
