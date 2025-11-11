@@ -1,84 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My BIS23 Webpage</title>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>Fuel Efficiency Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            color: black;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff;
         }
-        
-        .main-content {
-            width: 80%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .styled-text {
-            color: #007bff;
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #333;
-            color: white;
-            margin-top: 20px;
-        }
-
-        .footer a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #ffcc00;
-            font-weight: bold;
+        .input-focus-mint:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5); 
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="main-content">
-        <header style="text-align: center; margin-bottom: 20px;">
-            <img src="carlos_logo.jpg" alt="Carlos's Webpage Logo" style="max-width: 150px; height: auto;">
-            <hr>
-        </header>
+    <div id="calculator-card" class="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl border border-blue-100">
 
-        <h1>Welcome to My BIS23 Webpage!</h1>
-        <p>Hi this is my new website hope you enjoy it!</p>
-        
-        <p class="styled-text"> This is my BIS 23 webpage. This website is built with html and css.</p>
-
-        <h3>My Bio</h3>
-        <p>Hi my name is Carlos Murillo I am from Ecuador, South America. I am a student-athlete majoring in CIS. This site is designed to showcase my work and assingments. </p>
-        
-        <h3 style="margin-top: 30px;">Featured Graphic</h3>
-        <div style="text-align: center;">
-            <img src="my_picture.png" alt="A personal picture or graphic" style="max-width: 300px; height: auto; border: 1px solid #ccc; padding: 5px;">
+        <div class="flex flex-col items-center mb-8">
+            <div id="custom-logo" 
+                 class="w-16 h-16 rounded-lg mb-3 object-cover shadow-md bg-cover bg-center"
+                 style="background-image: url('360_F_333098851_oaiN8o7glILcg7nsT1vhSPewI1wSjzyN.jpg'); background-color: #000;">
+            </div>
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-wider">Efficient Driving Calculator</h1>
+            <p class="text-sm text-gray-500 mt-1">Calculate your fuel economy</p>
         </div>
 
+        <div class="space-y-4">
+            <div>
+                <label for="milesTraveled" class="block text-sm font-medium text-gray-700 mb-1">Miles Traveled</label>
+                <input type="number" id="milesTraveled" placeholder="350.5"
+                       class="w-full p-3 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg outline-none transition duration-150 input-focus-mint"
+                       required>
+            </div>
+
+            <div>
+                <label for="gallonsUsed" class="block text-sm font-medium text-gray-700 mb-1">Gallons of Gas Used</label>
+                <input type="number" id="gallonsUsed" placeholder="12.8"
+                       class="w-full p-3 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg outline-none transition duration-150 input-focus-mint"
+                       required>
+            </div>
+        </div>
+
+        <button onclick="calculateMPG()"
+                class="w-full mt-8 py-3 px-4 bg-blue-900 text-black font-bold rounded-lg shadow-xl shadow-emerald-500/30 hover:bg-blue-800 transition duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-emerald-500 focus:ring-opacity-50 active:bg-blue-950">
+            CALCULATE MPG
+        </button>
+
+        <div id="resultBox" class="mt-6 p-4 bg-white border border-blue-200/50 rounded-lg text-center transition-all duration-300 ease-in-out hidden">
+            <p class="text-sm font-medium text-gray-600">Your Miles Per Gallon (MPG)</p>
+            <p id="mpgResult" class="text-5xl font-extrabold text-emerald-600 mt-1">--</p>
+        </div>
+        
+        <div id="messageBox" class="mt-4 p-3 rounded-lg text-sm text-center text-gray-800 hidden"></div>
+
     </div>
 
-    <div class="footer">
-        <p>Connect and Learn More:</p>
-        <a href="mpg_calculator.html">Fuel Efficiency Calculator</a> | 
-        <a href="#">Mortgage Calculator</a>
+    <script>
+        const milesInput = document.getElementById('milesTraveled');
+        const gallonsInput = document.getElementById('gallonsUsed');
+        const mpgResult = document.getElementById('mpgResult');
+        const resultBox = document.getElementById('resultBox');
+        const messageBox = document.getElementById('messageBox');
         
-        <hr>
-        
-        <p>&copy; All Rights Reserved 2012</p>
-    </div>
+        function hideMessages() {
+            messageBox.classList.add('hidden');
+            resultBox.classList.add('hidden');
+        }
 
+        function showError(message) {
+            messageBox.classList.remove('hidden');
+            messageBox.classList.remove('bg-emerald-100', 'text-emerald-800');
+            messageBox.classList.add('bg-red-100', 'text-red-800');
+            messageBox.textContent = message;
+            resultBox.classList.add('hidden');
+        }
+
+        function calculateMPG() {
+            hideMessages();
+
+            const milesTraveled = parseFloat(milesInput.value);
+            const gallonsOfGasUsed = parseFloat(gallonsInput.value);
+
+            if (isNaN(milesTraveled) || isNaN(gallonsOfGasUsed) || milesTraveled <= 0 || gallonsOfGasUsed <= 0) {
+                showError("Please enter valid, positive numbers for both Miles Traveled and Gallons Used.");
+                return;
+            }
+
+            if (gallonsOfGasUsed === 0) {
+                showError("Cannot divide by zero. Gallons Used must be greater than zero.");
+                return;
+            }
+
+            const milesPerGallon = milesTraveled / gallonsOfGasUsed;
+
+            const formattedMPG = milesPerGallon.toFixed(2);
+            
+            mpgResult.textContent = formattedMPG;
+            resultBox.classList.remove('hidden');
+        }
+
+    </script>
 </body>
 </html>
