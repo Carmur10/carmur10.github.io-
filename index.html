@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My BIS23 Webpage</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: black;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .main-content {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .styled-text {
+            color: #007bff;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        .slider-container {
+            max-width: 500px;
+            position: relative;
+            margin: 0 auto 20px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .mySlides {
+            display: none; 
+            width: 100%;
+        }
+
+        .mySlides img {
+            vertical-align: middle;
+            width: 100%;
+            height: auto;
+        }
+        
+        .slide-caption {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev {
+            border-radius: 0 3px 3px 0;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .dot-container {
+            text-align:center; 
+            padding-top: 10px;
+            margin-bottom: 20px;
+        }
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <header style="text-align: center; margin-bottom: 20px;">
+            <img src="carlos_logo.jpg" alt="Carlos's Webpage Logo" style="max-width: 150px; height: auto;">
+            <hr>
+        </header>
+
+        <h1>Welcome to My BIS23 Webpage!</h1>
+        <p>Hi this is my new website hope you enjoy it!</p>
+        
+        <p class="styled-text"> This is my BIS 23 webpage. This website is built with html, css and JavaScript, scroll down to see more!.</p>
+
+        <h3>My Bio</h3>
+        <p>Hi my name is Carlos Murillo I am from Ecuador, South America. I am a student-athlete majoring in CIS. This site is designed to showcase my work and assingments. </p>
+        
+        <h3 style="margin-top: 30px; text-align: center;">Featured Image Gallery</h3>
+        
+        <div class="slider-container">
+            <div class="mySlides fade">
+                <img src="my_picture.jpg" alt="Personal Picture 1" style="width:100%">
+                <div class="slide-caption">This is me in my car.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="image2.jpg" alt="Personal Picture 2" style="width:100%">
+                <div class="slide-caption">A picture from my home country, Ecuador.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="image3.jpg" alt="Personal Picture 3" style="width:100%">
+                <div class="slide-caption">Playing soccer with my team.</div>
+            </div>
+            
+            <div class="mySlides fade">
+                <img src="image4.jpg" alt="Personal Picture 4" style="width:100%">
+                <div class="slide-caption">My favorite place on campus.</div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            
+        </div>
+        
+        <div class="dot-container">
+            <span class="dot" onclick="currentSlide(1)"></span> 
+            <span class="dot" onclick="currentSlide(2)"></span> 
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>Connect and Learn More:</p>
+        <a href="mpg_calculator.html">Fuel Efficiency Calculator</a> | 
+        <a href="mortgage_calculator.html">Mortgage Calculator</a>
+        
+        <hr>
+        
+        <p>&copy; All Rights Reserved 2012</p>
+    </div>
+<script>
+        let slideIndex = 1; 
+        let timeout; 
+
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+            clearTimeout(timeout);
+            showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+            clearTimeout(timeout);
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+            
+            if (n === undefined) { 
+                timeout = setTimeout(autoAdvance, 4000); 
+            } else {
+                timeout = setTimeout(autoAdvance, 5000); 
+            }
+        }
+        
+        function autoAdvance() {
+            showSlides(slideIndex += 1);
+        }
+
+        autoAdvance();
+    </script>
+</body>
+</html>
