@@ -24,6 +24,7 @@
             padding: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
+            margin-top: 15px;
         }
         h1 {
             color: #666666;
@@ -37,6 +38,7 @@
         td {
             padding: 10px;
             vertical-align: top;
+            width: 50%;
         }
         .description-box {
             padding: 15px;
@@ -49,10 +51,26 @@
             cursor: pointer;
             font-weight: bold;
         }
+        .home-button {
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            background-color: #666;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: background-color 0.2s;
+        }
+        .home-button:hover {
+            background-color: #444;
+        }
     </style>
 </head>
 
 <body>
+    <a href="../index.html" class="home-button">← Go to Home Page</a>
+
     <h1>Home Mortgage Calculator</h1>
 
     <div class="container">
@@ -62,7 +80,7 @@
                     To use the Home Mortgage Calculator enter the amount of the mortgage, the interest of the loan, and the number of years. Then click on the "Calculate" button to see an estimate of your monthly payment.
                 </td>
 
-                <td width="246" align="center" valign="middle">
+                <td align="center" valign="middle">
                     <form name="Form1">
                         <table>
                             <tr>
