@@ -62,7 +62,8 @@
         .mySlides img {
             vertical-align: middle;
             width: 100%;
-            height: auto;
+            height: 250px; /* Uniform image height */
+            object-fit: cover; /* Ensures images fill the space without distortion */
         }
         
         .slide-caption {
@@ -199,36 +200,38 @@
         <p>&copy; All Rights Reserved 2012</p>
     </div>
 <script>
-    let slideIndex = 1; 
-    let timeout; 
+        let slideIndex = 1; 
+        let timeout; 
 
-    showSlides(slideIndex);
-    
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-    
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
+        showSlides(slideIndex);
         
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-        
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";  
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
         }
         
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
         }
-        
-        slides[slideIndex-1].style.display = "block";  
-        dots[slideIndex-1].className += " active";
-    }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+        }
 </script>
+</body>
+</html>
