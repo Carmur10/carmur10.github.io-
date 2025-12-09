@@ -62,8 +62,8 @@
         .mySlides img {
             vertical-align: middle;
             width: 100%;
-            height: 500px; 
-            object-fit: cover; 
+            height: 500px;
+            object-fit: cover;
         }
         
         .slide-caption {
@@ -158,22 +158,22 @@
         <div class="slider-container">
             <div class="mySlides fade">
                 <img src="my_picture.png" alt="Personal Picture 1" style="width:100%">
-                <div class="slide-caption">This is me.</div>
+                <div class="slide-caption">This is me in my car.</div>
             </div>
 
             <div class="mySlides fade">
                 <img src="image2.jpg" alt="Personal Picture 2" style="width:100%">
-                <div class="slide-caption">A picture from my home Manta, Ecuador.</div>
+                <div class="slide-caption">A picture from my home country, Ecuador.</div>
             </div>
 
             <div class="mySlides fade">
                 <img src="image3.jpg" alt="Personal Picture 3" style="width:100%">
-                <div class="slide-caption">This is me as a kid a very long time ago back in my country.</div>
+                <div class="slide-caption">Playing soccer with my team.</div>
             </div>
             
             <div class="mySlides fade">
                 <img src="image4.jpg" alt="Personal Picture 4" style="width:100%">
-                <div class="slide-caption">Barcelona SC my team from my country lifting a very special trophy.</div>
+                <div class="slide-caption">My favorite place on campus.</div>
             </div>
 
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -203,13 +203,15 @@
         let slideIndex = 1; 
         let timeout; 
 
-        showSlides(slideIndex);
+        autoAdvance();
         
         function plusSlides(n) {
+            clearTimeout(timeout);
             showSlides(slideIndex += n);
         }
         
         function currentSlide(n) {
+            clearTimeout(timeout);
             showSlides(slideIndex = n);
         }
 
@@ -231,6 +233,15 @@
             
             slides[slideIndex-1].style.display = "block";  
             dots[slideIndex-1].className += " active";
+            
+            if (n !== undefined) { 
+                timeout = setTimeout(autoAdvance, 5000); 
+            }
+        }
+        
+        function autoAdvance() {
+            showSlides(slideIndex += 1);
+            timeout = setTimeout(autoAdvance, 4000); 
         }
 </script>
 </body>
