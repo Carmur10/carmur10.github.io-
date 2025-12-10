@@ -156,7 +156,7 @@
         <h3 style="margin-top: 30px; text-align: center;">Featured Image Gallery</h3>
         
         <div class="slider-container">
-            <div class="mySlides fade">
+            <div class="mySlides fade" style="display: block;">
                 <img src="my_picture.png" alt="Personal Picture 1" style="width:100%">
                 <div class="slide-caption">This is me.</div>
             </div>
@@ -201,63 +201,51 @@
     </div>
 <script>
     let slideIndex = 1; 
-    let autoPlaySpeed = 6000; // 6 seconds for auto-advance
-    let manualResumeDelay = 6000; // Wait 6 seconds to resume after a manual click
+    let autoPlaySpeed = 5000; 
+    let manualResumeDelay = 5000; 
     let timeout; 
 
-    // Start the auto-play loop when the page loads
     startAutoPlay(); 
     
-    // Manual controls: Stop timer, show slide, then resume auto-play
     function plusSlides(n) {
         clearTimeout(timeout); 
         slideIndex += n;
         showSlides();
-        startAutoPlay(); // Restart the timer loop immediately after the manual change
+        startAutoPlay();
     }
     
     function currentSlide(n) {
         clearTimeout(timeout); 
         slideIndex = n;
         showSlides();
-        startAutoPlay(); // Restart the timer loop immediately after the manual change
+        startAutoPlay();
     }
 
-    // Function to handle the actual display of the slide
     function showSlides() {
         let i;
         let slides = document.getElementsByClassName("mySlides");
         let dots = document.getElementsByClassName("dot");
         
-        // Looping logic
         if (slideIndex > slides.length) {slideIndex = 1}
         if (slideIndex < 1) {slideIndex = slides.length}
         
-        // Hide all slides and remove active dot class
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";  
             dots[i].className = dots[i].className.replace(" active", "");
         }
         
-        // Show the current slide and set the dot
         slides[slideIndex-1].style.display = "block";  
         dots[slideIndex-1].className += " active";
     }
 
-    // New, dedicated function to handle the auto-play logic
     function startAutoPlay() {
-        // First, make sure any previous timer is stopped.
         clearTimeout(timeout);
-        
-        // Then, set the timer to run the advance function repeatedly.
         timeout = setTimeout(autoAdvance, autoPlaySpeed); 
     }
     
     function autoAdvance() {
         slideIndex += 1;
         showSlides();
-        
-        // Call the startAutoPlay function again to loop the timer
         startAutoPlay(); 
     }
 </script>
