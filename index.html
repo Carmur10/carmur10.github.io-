@@ -203,6 +203,7 @@
         let slideIndex = 1; 
         let timeout; 
 
+        // 1. Starts the autoplay feature immediately when the page loads
         autoAdvance();
         
         function plusSlides(n) {
@@ -220,6 +221,7 @@
             let slides = document.getElementsByClassName("mySlides");
             let dots = document.getElementsByClassName("dot");
             
+            // Ensures slides loop sequentially: 1 -> 2 -> 3 -> 4 -> 1
             if (n > slides.length) {slideIndex = 1}
             if (n < 1) {slideIndex = slides.length}
             
@@ -234,14 +236,16 @@
             slides[slideIndex-1].style.display = "block";  
             dots[slideIndex-1].className += " active";
             
+            // Re-enables autoplay after a manual click
             if (n !== undefined) { 
                 timeout = setTimeout(autoAdvance, 5000); 
             }
         }
         
+        // 2. This function moves to the next slide and restarts the timer.
         function autoAdvance() {
-            showSlides(slideIndex += 1);
-            timeout = setTimeout(autoAdvance, 4000); 
+            showSlides(slideIndex += 1); // Increments the slide index to show the next slide in order
+            timeout = setTimeout(autoAdvance, 6000); // Wait 6 seconds (6000ms) before advancing again
         }
 </script>
 </body>
