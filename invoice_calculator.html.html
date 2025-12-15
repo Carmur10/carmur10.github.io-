@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Invoice Calculator (Modified)</title>
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .calculator-form { max-width: 700px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 2px solid #ccc; padding-bottom: 5px; margin-top: 0; }
+        .item-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .item-table th, .item-table td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        .item-table th { background-color: #f2f2f2; }
+        .item-table input[type="number"], .item-table input[type="text"] { width: 90%; padding: 5px; box-sizing: border-box; border: 1px solid #eee; }
+        .totals-section { width: 350px; float: right; }
+        .total-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .total-row label { font-weight: bold; }
+        .total-row input { width: 120px; text-align: right; padding: 5px; border: 1px solid #ccc; background-color: #e9e9e9; }
+        #totalCostInput { font-weight: bold; background-color: #cceeff; border-color: #007bff; font-size: 1.1em; }
+        .text-right { text-align: right; }
+        input[readonly] { background-color: #f8f8f8; cursor: default; }
+
+        
+        .home-button {
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: background-color 0.2s;
+        }
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    
+    <a href="https://carmur10.github.io/carmur10.github.io-/" class="home-button">← Go to Home Page</a>
+
+    <div class="calculator-form">
+        <h2>Invoice Items</h2>
+
+        <table class="item-table">
+            <thead>
+                <tr>
+                    <th style="width:40%;">Item Description</th>
+                    <th style="width:15%;">Unit Price</th>
+                    <th style="width:20%;">Quantity</th>
+                    <th style="width:25%;">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Product A (Fixed Price)</td>
+                    <td class="text-right">$<span id="priceA_display">15.50</span></td>
+                    <td>
+                        <input type="number" id="qtyA" min="0" oninput="calculateTotal()">
+                    </td>
+                    <td>
+                        <input type="text" id="subtotalA" value="0.00" readonly class="text-right">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Service B (Fixed Price)</td>
+                    <td class="text-right">$<span id="priceB_display">50.00</span></td>
+                    <td>
+                        <input type="number" id="qtyB" min="0" oninput="calculateTotal()">
+                    </td>
+                    <td>
+                        <input type="text" id="subtotalB" value="0.00" readonly class="text-right">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totals-section">
+            
+            <div class="total-row">
+                <label for="grandSubtotal">Subtotal:</label>
+                <input type="text" id="grandSubtotal" value="0.00" readonly>
+            </div>
+
+            <div class="total-row">
+                <label for="taxAmount">Tax Rate (<span id="taxRateDisplay"></span>):</label>
+                <input type="text" id="taxAmount" value="0.00" readonly>
+            </div>
+
+            <div class="total-row">
+                <label for="otherCostsInput">Other Costs:</label>
+                <input type="text" id="otherCostsInput" value="10.00" readonly>
+            </div>
+
+            <div class="total-row">
+                <label for="totalCostInput">Total Cost:</label>
+                <input type="text" id="totalCostInput" value="10.00" readonly>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function calculateTotal() {
+            
+            const UNIT_PRICE_A = 15.50;
+            const UNIT_PRICE_B = 50.00;
+            
+            const TAX_RATE = 0.08;    
+            
+            const OTHER_COSTS = 10.00;
+
+            const qtyA = parseFloat(document.getElementById('qtyA').value) || 0;
+            const qtyB = parseFloat(document.getElementById('qtyB').value) || 0;
+
+            const subtotalA = qtyA * UNIT_PRICE_A;
+            const subtotalB = qtyB * UNIT_PRICE_B;
+
+            const grandSubtotal = subtotalA + subtotalB;
+
+            const taxAmount = grandSubtotal * TAX_RATE;
+
+            const grandTotal = grandSubtotal + taxAmount + OTHER_COSTS;
+
+            const formatCurrency = (amount) => amount.toFixed(2);
+
+            document.getElementById('subtotalA').value = formatCurrency(subtotalA);
+            document.getElementById('subtotalB').value = formatCurrency(subtotalB);
+
+            document.getElementById('taxRateDisplay').textContent = (TAX_RATE * 100) + '%';
+            document.getElementById('otherCostsInput').value = formatCurrency(OTHER_COSTS);
+            
+            document.getElementById('grandSubtotal').value = formatCurrency(grandSubtotal);
+            document.getElementById('taxAmount').value = formatCurrency(taxAmount);
+            document.getElementById('totalCostInput').value = formatCurrency(grandTotal);
+        }
+
+        window.onload = calculateTotal;
+    </script>
+
+</body>
+</html>
