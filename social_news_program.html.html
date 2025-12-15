@@ -83,8 +83,8 @@
 
         <div class="controls">
             <button id="showLinksBtn">1: Show Links</button>
-            <button id="addLinkBtn">2: Add Link (Mock Data)</button>
-            <button id="removeLinkBtn">3: Remove Link (Last Item)</button>
+            <button id="addLinkBtn">2: Add Link</button>
+            <button id="removeLinkBtn">3: Remove Link</button>
             <button id="quitBtn">4: Quit Program</button>
         </div>
 
@@ -93,17 +93,15 @@
     </div>
 
     <script>
+        let linkCounter = 1;
+        
         function Link(title, url, author) {
             this.title = title;
             this.url = url;
             this.author = author;
         }
 
-        const links = [
-            new Link("Hacker News", "https://news.ycombinator.com", "Bartholomeo"),
-            new Link("The Coding Train", "https://www.youtube.com/c/TheCodingTrain", "Daniel Shiffman"),
-            new Link("Dev Community", "https://dev.to", "Bartholomeo")
-        ];
+        const links = []; // Links array starts empty
 
         let isProgramRunning = true;
         
@@ -118,7 +116,7 @@
 
         function renderLinks() {
             if (links.length === 0) {
-                linksOutputEl.textContent = "The link list is empty.";
+                linksOutputEl.textContent = "The link list is currently empty.";
                 return "The list is empty. Add a link first!";
             }
             
@@ -139,20 +137,18 @@
 
         function addLink() {
             if (!isProgramRunning) return;
-            const mockData = [
-                { title: "New Tech Blog", url: "my-new-blog.io", author: "User" },
-                { title: "Gemini AI", url: "https://gemini.google.com", author: "Gemini" }
-            ];
             
-            const newLinkData = mockData[Math.floor(Math.random() * mockData.length)];
+            const newTitle = `Example Link ${linkCounter}`;
+            let newUrl = `example-link-${linkCounter}.com`;
+            const newAuthor = "Random User";
             
-            let newUrl = newLinkData.url;
             if (!newUrl.startsWith("http://") && !newUrl.startsWith("https://")) {
                 newUrl = "http://" + newUrl;
             }
             
-            const newLink = new Link(newLinkData.title, newUrl, newLinkData.author);
+            const newLink = new Link(newTitle, newUrl, newAuthor);
             links.push(newLink);
+            linkCounter++;
             
             renderLinks();
             displayMessage(`Link added successfully: ${newLink.title}`, false);
