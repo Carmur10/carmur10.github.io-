@@ -75,6 +75,7 @@
             width: 100%;
             text-align: center;
             background-color: rgba(0,0,0,0.6);
+            z-index: 1;
         }
 
         .prev, .next {
@@ -193,7 +194,8 @@
     <div class="footer">
         <p>Connect and Learn More:</p>
         <a href="mpg_calculator.html">Fuel Efficiency Calculator</a> | 
-        <a href="mortgage_calculator.html">Mortgage Calculator</a>
+        <a href="mortgage_calculator.html">Mortgage Calculator</a> |
+        <a href="social_news_program.html">Social News Program</a>
         
         <hr>
         
@@ -205,20 +207,21 @@
     let manualResumeDelay = 6000; 
     let timeout; 
 
-    startAutoPlay(); 
+    showSlides();
+    startAutoPlay();
     
     function plusSlides(n) {
         clearTimeout(timeout); 
         slideIndex += n;
         showSlides();
-        startAutoPlay();
+        timeout = setTimeout(autoAdvance, manualResumeDelay); 
     }
     
     function currentSlide(n) {
         clearTimeout(timeout); 
         slideIndex = n;
         showSlides();
-        startAutoPlay();
+        timeout = setTimeout(autoAdvance, manualResumeDelay); 
     }
 
     function showSlides() {

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social News Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        p {
+            color: #555;
+            font-size: 0.9em;
+        }
+        .instructions {
+            background-color: #ffffe0;
+            border: 1px solid #ffeb3b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .home-button {
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: background-color 0.2s;
+        }
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+        .controls button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        #showLinksBtn { background-color: #4CAF50; color: white; }
+        #showLinksBtn:hover { background-color: #45a049; }
+        #addLinkBtn { background-color: #2196F3; color: white; }
+        #addLinkBtn:hover { background-color: #0b7dda; }
+        #removeLinkBtn { background-color: #f44336; color: white; }
+        #removeLinkBtn:hover { background-color: #da190b; }
+        #quitBtn { background-color: #ccc; color: #333; }
+        #quitBtn:hover { background-color: #bbb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://carmur10.github.io/carmur10.github.io-/" class="home-button">← Go to Home Page</a>
+
+        <h1>Social News Program</h1>
+        <p>Interactive Link Management</p>
+        
+        <div class="instructions">
+            The program is now running in the console (press F12). 
+            Click the buttons below to interact, and check the console for status messages and the link list.
+        </div>
+
+        <div class="controls">
+            <button id="showLinksBtn">1: Show Links</button>
+            <button id="addLinkBtn">2: Add Link (Mock Data)</button>
+            <button id="removeLinkBtn">3: Remove Link (Last Item)</button>
+            <button id="quitBtn">4: Quit Program</button>
+        </div>
+
+        <div id="outputMessage" style="margin-top: 20px; color: green; font-weight: bold;"></div>
+        <pre id="linksOutput" style="text-align: left; background-color: #eee; padding: 10px; margin-top: 15px; border-radius: 5px; white-space: pre-wrap;"></pre>
+    </div>
+
+    <script>
+        function Link(title, url, author) {
+            this.title = title;
+            this.url = url;
+            this.author = author;
+        }
+
+        const links = [
+            new Link("Hacker News", "https://news.ycombinator.com", "Bartholomeo"),
+            new Link("The Coding Train", "https://www.youtube.com/c/TheCodingTrain", "Daniel Shiffman"),
+            new Link("Dev Community", "https://dev.to", "Bartholomeo")
+        ];
+
+        let isProgramRunning = true;
+        
+        const outputMessageEl = document.getElementById('outputMessage');
+        const linksOutputEl = document.getElementById('linksOutput');
+
+        function displayMessage(msg, isError = false) {
+            console.log(msg);
+            outputMessageEl.textContent = msg;
+            outputMessageEl.style.color = isError ? 'red' : 'green';
+        }
+
+        function renderLinks() {
+            if (links.length === 0) {
+                linksOutputEl.textContent = "The link list is empty.";
+                return "The list is empty. Add a link first!";
+            }
+            
+            const list = links.map((link, index) => {
+                const rank = index + 1;
+                return `[${rank}] ${link.title} (${link.url}) by ${link.author}`;
+            }).join('\n');
+
+            linksOutputEl.textContent = list;
+            return `List of Links (${links.length} total):\n${list}`;
+        }
+        
+        function showLinks() {
+            if (!isProgramRunning) return;
+            const list = renderLinks();
+            displayMessage("Current Link List displayed.", false);
+        }
+
+        function addLink() {
+            if (!isProgramRunning) return;
+            const mockData = [
+                { title: "New Tech Blog", url: "my-new-blog.io", author: "User" },
+                { title: "Gemini AI", url: "https://gemini.google.com", author: "Gemini" }
+            ];
+            
+            const newLinkData = mockData[Math.floor(Math.random() * mockData.length)];
+            
+            let newUrl = newLinkData.url;
+            if (!newUrl.startsWith("http://") && !newUrl.startsWith("https://")) {
+                newUrl = "http://" + newUrl;
+            }
+            
+            const newLink = new Link(newLinkData.title, newUrl, newLinkData.author);
+            links.push(newLink);
+            
+            renderLinks();
+            displayMessage(`Link added successfully: ${newLink.title}`, false);
+        }
+
+        function removeLink() {
+            if (!isProgramRunning) return;
+            if (links.length === 0) {
+                displayMessage("Removal is not possible: The list is currently empty.", true);
+                return;
+            }
+
+            const indexToRemove = links.length - 1;
+            const removedLink = links.splice(indexToRemove, 1);
+            
+            renderLinks();
+            displayMessage(`Link removed successfully: ${removedLink[0].title} was removed.`, false);
+        }
+
+        function quitProgram() {
+            isProgramRunning = false;
+            displayMessage("Thank you for using the Social News Program! (Program Halted)", true);
+            
+            document.querySelectorAll('.controls button').forEach(button => {
+                button.disabled = true;
+                button.style.opacity = 0.5;
+            });
+        }
+        
+        document.getElementById('showLinksBtn').addEventListener('click', showLinks);
+        document.getElementById('addLinkBtn').addEventListener('click', addLink);
+        document.getElementById('removeLinkBtn').addEventListener('click', removeLink);
+        document.getElementById('quitBtn').addEventListener('click', quitProgram);
+        
+        renderLinks();
+        displayMessage("Program running. Use buttons to interact.", false);
+    </script>
+</body>
+</html>
